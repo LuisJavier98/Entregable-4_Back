@@ -7,7 +7,7 @@ const getAllUsers = (req, res) => {
             res.status(200).json(data)
         })
         .catch((err) => {
-            res.status(400).json({message: err.message})
+            res.status(400).json({ message: err.message })
         })
 }
 
@@ -15,28 +15,28 @@ const getUserById = (req, res) => {
     const id = req.params.id
     userControllers.findUserById(id)
         .then((data) => {
-            if(data){
+            if (data) {
                 res.status(200).json(data)
             } else {
-                res.status(404).json({message: 'Invalid ID'})
+                res.status(404).json({ message: 'Invalid ID' })
             }
         })
         .catch((err) => {
-            res.status(400).json({message: err.message})
+            res.status(400).json({ message: err.message })
         })
 }
 
 const postUser = (req, res) => {
 
-    const {first_name, last_name, user_name, email, password, age, country} = req.body
+    const { first_name, last_name, user_name, email, password, age, country } = req.body
 
-    userControllers.createUser({first_name, last_name, user_name, email, password, age, country})
+    userControllers.createUser({ first_name, last_name, user_name, email, password, age, country })
         .then((data) => {
             res.status(201).json(data)
         })
         .catch((err) => {
             res.status(400).json({
-                message: err.message, 
+                message: err.message,
                 fields: {
                     first_name: 'string',
                     last_name: 'string',
@@ -45,24 +45,25 @@ const postUser = (req, res) => {
                     password: 'string',
                     age: 'number',
                     country: 'MXN'
-                }})
+                }
+            })
         })
 }
 
 const patchUser = (req, res) => {
-    const id = req.params.id 
-    const {first_name, last_name, user_name, age, country} = req.body
+    const id = req.params.id
+    const { first_name, last_name, user_name, age, country } = req.body
 
-    userControllers.updateUser(id, {first_name, last_name, user_name, age, country})
+    userControllers.updateUser(id, { first_name, last_name, user_name, age, country })
         .then((data) => {
-            if(data){
-                res.status(200).json({message: 'User Modified Succesfully'})
+            if (data) {
+                res.status(200).json({ message: 'User Modified Succesfully' })
             } else {
-                res.status(404).json({message: 'Invalid ID'})
+                res.status(404).json({ message: 'Invalid ID' })
             }
         })
         .catch((err) => {
-            res.status(400).json({message: err.message})
+            res.status(400).json({ message: err.message })
         })
 }
 
@@ -71,14 +72,14 @@ const deleteUser = (req, res) => {
 
     userControllers.deleteUser(id)
         .then((data) => {
-            if(data){
-                res.status(200).json({message: 'User Deleted Succesfully'})
+            if (data) {
+                res.status(200).json({ message: 'User Deleted Succesfully' })
             } else {
-                res.status(404).json({message: 'Invalid ID'})
+                res.status(404).json({ message: 'Invalid ID' })
             }
         })
         .catch((err) => {
-            res.status(400).json({message: err.message})
+            res.status(400).json({ message: err.message })
         })
 }
 

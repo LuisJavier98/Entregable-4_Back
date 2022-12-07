@@ -1,10 +1,10 @@
 const express = require('express')
-
 const app = express()
 const db = require('./utils/database')
 const port = require('../config').api.port
-
 const userRouter = require('./users/users.router')
+const router = require('./auth/auth.router')
+
 
 db.authenticate()
     .then(() => console.log('Database Authenticated'))
@@ -16,11 +16,12 @@ db.sync()
 
 app.use(express.json())
 
-app.get('/',  (req, res) => {
-    res.status(200).json({message: 'Ok!'})
+app.get('/', (req, res) => {
+    res.status(200).json({ message: 'Ok!' })
 })
 
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1', router)
 
 app.listen(port, () => {
     console.log(`Server started at port ${port}`)
